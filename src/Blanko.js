@@ -3,22 +3,35 @@ import Header from './Header';
 import Footer from './Footer';
 import { strs } from './data/blanko';
 
-function Blanko() {
-  var available_strs = strs;
-  //console.log(available_strs)
-  const random = Math.floor(Math.random() * available_strs.length);
-  const str = available_strs[random];
-  console.log(str);
-  const strArray = Array.from(str);
-  console.log(strArray);
-
-  var deleteIndex = []
+var available_strs = strs;
+const random = Math.floor(Math.random() * available_strs.length);
+const str = available_strs[random];
+//console.log(str);  
+const strArray = Array.from(str);
+//console.log(strArray);
+var deleteIndex = []
   while(deleteIndex.length < 3){
     var r = Math.floor(Math.random() * 12);
     if(strArray[r] !== ' ' && deleteIndex.indexOf(r) === -1){
       deleteIndex.push(r);
     }
   }
+const endArr = str.split('').map((item, index) => {
+  return {
+    id: index,
+    title: item,
+    value: '',
+    isEdit: deleteIndex.indexOf(index) === -1
+  }
+})
+console.log(endArr)
+
+function Blanko() {
+  //console.log(available_strs)
+  const str = available_strs[random];
+  console.log(str);
+  const strArray = Array.from(str);
+  console.log(strArray);
 
   console.log(deleteIndex);
   console.log(strArray[deleteIndex[0]], strArray[deleteIndex[1]], strArray[deleteIndex[2]]);
@@ -35,7 +48,7 @@ function Blanko() {
     window.location.reload();
   }
 
-  const checkInputs = () => {
+  /* const checkInputs = () => {
     var inputOne = document.getElementById(deleteIndex[0]);
     var inputTwo = document.getElementById(deleteIndex[1]);
     var inputThree = document.getElementById(deleteIndex[2]);
@@ -43,7 +56,7 @@ function Blanko() {
     if (inputOne === strArray[deleteIndex[0]] && inputTwo === strArray[deleteIndex[1]] && inputThree === strArray[deleteIndex[2]]) {
       alert('Correct!');
     }
-  }
+  } */
 
   return (
     <div>
@@ -58,21 +71,19 @@ function Blanko() {
           <div style={{
             display: 'flex',
           }}>
-            {strArray}
-            {strArray.map((char, i) => {
-              if(deleteIndex.includes(i)) {
+            {endArr.map((arr, i) => {
+              if(arr.isEdit === false) {
                 return (
                   <div key={i} style={{
                     borderStyle: 'solid',
                     width: '50px',
                     height: '50px',
                   }}>
-                    {/* onClick={() => goToProperty(listing.id)} */}
                     <input id={i} style={{
                       width: '45px',
                       border: 'none',
                       borderBottom: '1px solid black'
-                    }} onChange={checkInputs}></input>
+                    }} type='text'></input>
                   </div>
                 )
               }
@@ -83,8 +94,7 @@ function Blanko() {
                     width: '50px',
                     height: '50px',
                   }}>
-                    {/* onClick={() => goToProperty(listing.id)} */}
-                    {char}
+                    {arr.title}
                   </div>
                 )
               }
