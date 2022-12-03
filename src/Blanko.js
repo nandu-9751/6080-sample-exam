@@ -16,7 +16,7 @@ var deleteIndex = []
       deleteIndex.push(r);
     }
   }
-const endArr = str.split('').map((item, index) => {
+const endArr = strArray.map((item, index) => {
   return {
     id: index,
     title: item,
@@ -48,15 +48,21 @@ function Blanko() {
     window.location.reload();
   }
 
-  /* const checkInputs = () => {
-    var inputOne = document.getElementById(deleteIndex[0]);
-    var inputTwo = document.getElementById(deleteIndex[1]);
-    var inputThree = document.getElementById(deleteIndex[2]);
-    console.log(inputOne, inputTwo, inputThree)
-    if (inputOne === strArray[deleteIndex[0]] && inputTwo === strArray[deleteIndex[1]] && inputThree === strArray[deleteIndex[2]]) {
-      alert('Correct!');
-    }
-  } */
+  // not finished
+  const checkInputs = (e, arr) => {
+    /* var count = 0;
+    endArr.map((arr) => {
+      if (arr.isEdit === false) {
+        if (arr.value === arr.title) {
+          count += 1
+        }
+      }
+    })
+    if (count === 3) {
+      console.log('Correct!');
+    } */
+    console.log(arr)
+  }
 
   return (
     <div>
@@ -83,7 +89,11 @@ function Blanko() {
                       width: '45px',
                       border: 'none',
                       borderBottom: '1px solid black'
-                    }} type='text'></input>
+                    }} type='text'
+                    value={arr.value}
+                    onChange={(e) => {
+                      checkInputs(e,arr)
+                    }}></input>
                   </div>
                 )
               }
